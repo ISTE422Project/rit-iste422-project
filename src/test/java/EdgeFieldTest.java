@@ -8,7 +8,7 @@ public class EdgeFieldTest {
 
 	@Before
 	public void setUp() throws Exception {
-		testObj = new EdgeTest("1|testName");
+		testObj = new EdgeField("1|testName");
 	}
    
    @Test
@@ -98,36 +98,36 @@ public class EdgeFieldTest {
 	}
    
    @Test
-	public void testSetVarcharValue() {
+	public void testSetVarcharValueValid() {
 		testObj.setVarcharValue(2);
 		assertEquals("varcarValue should be 2",2,testObj.getVarcharValue());
 	}
    
    @Test
-	public void testSetVarcharValue() {
+	public void testSetVarcharValueInvalid() {
 		testObj.setVarcharValue(0);
 		assertEquals("varcarValue should be 1",1,testObj.getVarcharValue());
 	}
    
    @Test
-	public void testSetDataType() {
+	public void testSetDataTypeValid() {
 		testObj.setDataType(2);
 		assertEquals("dataType should be 2",2,testObj.getDataType());
 	}
    
    @Test
-	public void testSetDataType() {
+	public void testSetDataTypeInvalid() {
 		testObj.setDataType(-1);
 		assertEquals("dataType should be 0",0,testObj.getDataType());
 	}
    
    @Test
-	public void testToString() {
+	public void testToStringDefault() {
 		assertEquals("should be \"1|testName|0|0|0|0|1|false|false|\"","1|testName|0|0|0|0|1|false|false|",testObj.toString());
 	}
    
    @Test
-	public void testToString() {
+	public void testToStringChanged() {
 		testObj.setDefaultValue("test");
       testObj.setIsPrimaryKey(true);
       assertEquals("should be \"1|testName|0|0|0|0|1|true|false|test\"","1|testName|0|0|0|0|1|true|false|test",testObj.toString());
@@ -135,7 +135,7 @@ public class EdgeFieldTest {
 
    @Test
 	public void testGetStrDataType() {
-      String[] expectedOutput = {"Varchar", "Boolean", "Integer", "Double"}
+      String[] expectedOutput = {"Varchar", "Boolean", "Integer", "Double"};
       assertArrayEquals("strDataType should be {\"Varchar\", \"Boolean\", \"Integer\", \"Double\"}",expectedOutput,testObj.getStrDataType());
 	}
 
