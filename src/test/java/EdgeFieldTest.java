@@ -81,7 +81,7 @@ public class EdgeFieldTest {
    
    @Test
 	public void testSetDisallowNull() {
-		testObj.setTableBound(true);
+		testObj.setDisallowNull(true);
 		assertEquals("disallowNull should be true",true,testObj.getDisallowNull());
 	}
    
