@@ -23,7 +23,9 @@ public class CreateDDLMySQL extends EdgeConvertCreateDDL {
    
    public void createDDL() {
       EdgeConvertGUI.setReadSuccess(true);
-      databaseName = generateDatabaseName();
+      if (databaseName == null || databaseName.length() == 0) {
+         return;
+      }
       sb.append("CREATE DATABASE " + databaseName + ";\r\n");
       sb.append("USE " + databaseName + ";\r\n");
       for (int boundCount = 0; boundCount <= maxBound; boundCount++) { //process tables in order from least dependent (least number of bound tables) to most dependent
@@ -107,29 +109,9 @@ public class CreateDDLMySQL extends EdgeConvertCreateDDL {
          return 0;
       }
    }
-   
-   public String generateDatabaseName() { //prompts user for database name
-      String dbNameDefault = "MySQLDB";
-      //String databaseName = "";
 
-      do {
-         databaseName = (String)JOptionPane.showInputDialog(
-                       null,
-                       "Enter the database name:",
-                       "Database Name",
-                       JOptionPane.PLAIN_MESSAGE,
-                       null,
-                       null,
-                       dbNameDefault);
-         if (databaseName == null) {
-            EdgeConvertGUI.setReadSuccess(false);
-            return "";
-         }
-         if (databaseName.equals("")) {
-            JOptionPane.showMessageDialog(null, "You must select a name for your database.");
-         }
-      } while (databaseName.equals(""));
-      return databaseName;
+   public void setDatabaseName(String dbName) {
+      this.databaseName = dbName;
    }
    
    public String getDatabaseName() {

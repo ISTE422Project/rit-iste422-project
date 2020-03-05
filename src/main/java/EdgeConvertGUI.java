@@ -1033,8 +1033,10 @@ public class EdgeConvertGUI {
 
       try {
          Class selectedSubclass = objSubclasses[selected].getClass();
+         Method setDatabaseName = selectedSubclass.getMethod("setDatabaseName", String.class);
          Method getSQLString = selectedSubclass.getMethod("getSQLString", null);
          Method getDatabaseName = selectedSubclass.getMethod("getDatabaseName", null);
+         setDatabaseName.invoke(objSubclasses[selected], generateDatabaseName());
          strSQLString = (String)getSQLString.invoke(objSubclasses[selected], null);
          databaseName = (String)getDatabaseName.invoke(objSubclasses[selected], null);
       } catch (IllegalAccessException iae) {
@@ -1046,6 +1048,30 @@ public class EdgeConvertGUI {
       }
 
       return strSQLString;
+   }
+
+   public String generateDatabaseName() { //prompts user for database name
+      String dbNameDefault = "MySQLDB";
+      //String databaseName = "";
+
+      do {
+         databaseName = (String)JOptionPane.showInputDialog(
+                       null,
+                       "Enter the database name:",
+                       "Database Name",
+                       JOptionPane.PLAIN_MESSAGE,
+                       null,
+                       null,
+                       dbNameDefault);
+         if (databaseName == null) {
+            EdgeConvertGUI.setReadSuccess(false);
+            return "";
+         }
+         if (databaseName.equals("")) {
+            JOptionPane.showMessageDialog(null, "You must select a name for your database.");
+         }
+      } while (databaseName.equals(""));
+      return databaseName;
    }
 
    private void writeSQL(String output) {
