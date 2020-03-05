@@ -69,19 +69,21 @@ public class CreateDDLMySQLTest {
     }
 
     @Test
-    public void testGenerateDatabaseNameIsNotEmpty() {
-        assertNotEquals("GenerateDatabaseName should not be empty", "", testObj.generateDatabaseName());
+    public void testSetDatabaseName() {
+        testObj.setDatabaseName("testName");
+        assertEquals("setDatabaseName should be set", "testName", testObj.getDatabaseName());
     }
 
     @Test
-    public void testSetDatabaseName() {
-        String name = testObj.generateDatabaseName();
-        assertEquals("getDatabaseName should be generated value", name, testObj.getDatabaseName());
+    public void testCreateDDLEmptyName() {
+        testObj.setDatabaseName("");
+        assertEquals("getSQLString should be empty if no database name is passed", "", testObj.getSQLString());
     }
 
     @Test
     public void testCreateDDL() throws IOException {
         String expectedSQL = new String(Files.readAllBytes(Paths.get("MySQL.sql")), StandardCharsets.UTF_8).trim();
+        testObj.setDatabaseName("MySQLDB");
         String generatedSQL = testObj.getSQLString().trim();
         assertEquals("getSQLString matches expected SQL", expectedSQL, generatedSQL);
     }
