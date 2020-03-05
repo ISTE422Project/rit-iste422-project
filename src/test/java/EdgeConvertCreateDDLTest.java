@@ -57,6 +57,18 @@ public class EdgeConvertCreateDDLTest {
 	}
 
 	@Test
+	public void testNumFields() {
+		int boundFields = concreteWithArgs.fields.length;
+		assertEquals("Number of Fields is 7",7,boundFields);
+	}
+
+	@Test
+	public void testEmptyConstructorNumBoundTables() {
+		int[] boundTables = concreteNoArgs.numBoundTables;
+		assertEquals("Bound tables is null",null,boundTables);
+	}
+
+	@Test
 	public void testStringBufferInitialized() {
 		boolean sbIsSet = (concreteWithArgs.sb != null);
 		assertEquals("StringBuffer is initialized",true,sbIsSet);
